@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) {
 
         ApiContextInitializer.init();
-        Bot testBot = new Bot("CityCheckFin_bot", "1734832073:AAGSLCDuvW5Q4mKtXUdW5Puut6dP4aBvBvs");
+        Bot testBot = new Bot("CityTMS_bot", "1788643120:AAFtrOOYo0ldcKI4c_gsYAUZLv_QFyHfrpg");
         testBot.botConnect();
     }
 }
