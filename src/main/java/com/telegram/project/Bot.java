@@ -8,9 +8,11 @@ import org.apache.log4j.Logger;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,8 +34,18 @@ public class Bot extends TelegramLongPollingBot{
     @Getter
     private String token;
 
+    public Bot(String userName, String token) {
+        this.userName = userName;
+        this.token = token;
+    }
 
-    private void addToBase(String s){
+    public Bot(DefaultBotOptions options, String userName, String token) {
+        super(options);
+        this.userName = userName;
+        this.token = token;
+    }
+
+   private void addToBase(String s){
         DataBaseHandler dataBaseHandler = new DataBaseHandler();
         if(s.equals("/Moscow")){
             dataBaseHandler.sign(Cities.MOSCOW.toString(), Information.INFO_MOSCOW);
@@ -42,7 +54,7 @@ public class Bot extends TelegramLongPollingBot{
         }else if (s.equals("/Warsaw")){
             dataBaseHandler.sign(Cities.WARSAW.toString(), Information.INFO_WARSAW);
         }else if (s.equals("/London")){
-            dataBaseHandler.sign(Cities.LONDON.toString(), Information.INFO_LONDON);
+           dataBaseHandler.sign(Cities.LONDON.toString(), Information.INFO_LONDON);
         }
     }
 
@@ -91,7 +103,7 @@ public class Bot extends TelegramLongPollingBot{
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
             message.setText("London is the capital of England...");
-            addToBase(london);
+           // addToBase(london);
             try {
                 execute(message);
             } catch (TelegramApiException e) {

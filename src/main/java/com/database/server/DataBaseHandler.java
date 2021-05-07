@@ -18,7 +18,7 @@ public class DataBaseHandler extends Configurations {
     }
 
     public void sign(String city, String info){
-        String insert = "INSERT INFO:" + Constants.CITY_TABLE + "(" + Constants.CITY_NAME + ", " + Constants.CITY_INFO + ")"+
+        String insert = "INSERT INTO" + Constants.CITY_TABLE + "(" + Constants.CITY_NAME + ", " + Constants.CITY_INFO + ")"+
         "VALUES(?,?)";
 
         try {
