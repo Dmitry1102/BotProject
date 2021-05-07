@@ -7,17 +7,22 @@ import org.apache.log4j.Logger;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Bot extends TelegramLongPollingBot{
     private static final Logger log = Logger.getLogger(Bot.class);
-
     final int RECONNECT_PAUSE = 10000;
+
+    String moscow = Cities.MOSCOW.toString();
+    String berlin = Cities.BERLIN.toString();
+    String warsaw = Cities.WARSAW.toString();
+    String london = Cities.LONDON.toString();
 
     @Setter
     @Getter
@@ -26,13 +31,24 @@ public class Bot extends TelegramLongPollingBot{
     @Getter
     private String token;
 
+    public Bot(String userName, String token) {
+        this.userName = userName;
+        this.token = token;
+    }
+
+    public Bot(DefaultBotOptions options, String userName, String token) {
+        super(options);
+        this.userName = userName;
+        this.token = token;
+    }
+
+
     @Override
     public void onUpdateReceived(Update update) {
-
         log.debug("Receive new Update. updateID: " + update.getUpdateId());
-
         Long chatId = update.getMessage().getChatId();
         String inputText = update.getMessage().getText();
+
 
         if (inputText.startsWith("/start")) {
             SendMessage message = new SendMessage();
@@ -43,22 +59,48 @@ public class Bot extends TelegramLongPollingBot{
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
+
         } else if (inputText.startsWith("/Moscow")) {
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
-            message.setText("Moscow. Is the capital of Russia...");
+            message.setText("Moscow is the capital of Russia...");
+            try {
+                execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }else if (inputText.startsWith("/Berlin")) {
+            SendMessage message = new SendMessage();
+            message.setChatId(chatId);
+            message.setText("Berlin is the capital of Germany...");
             try {
                 execute(message);
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
 
-
+        }else if (inputText.startsWith("/London")) {
+            SendMessage message = new SendMessage();
+            message.setChatId(chatId);
+            message.setText("London is the capital of England...");
+            try {
+                execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }else if (inputText.startsWith("/Warsaw")) {
+            SendMessage message = new SendMessage();
+            message.setChatId(chatId);
+            message.setText("Warsaw is the capital of Poland...");
+            try {
+                execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
-    @Override
+            @Override
     public String getBotUsername() {
         return userName;
     }
