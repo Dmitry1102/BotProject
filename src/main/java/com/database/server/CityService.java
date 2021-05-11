@@ -12,19 +12,24 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
 
-    public List<Configurations> listAll() {
+    public List<City> listAll() {
         return cityRepository.findAll();
     }
 
-    public void save(Configurations configs) {
+    public void save(City configs) {
         cityRepository.save(configs);
     }
 
-    public Configurations get(long id) {
+    public City get(long id) {
         return cityRepository.findById(id).get();
     }
 
     public void delete(long id) {
         cityRepository.deleteById(id);
+    }
+
+
+    public String getCityByName(String name){
+        return cityRepository.findCityInfo(name);
     }
 }

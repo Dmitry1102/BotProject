@@ -20,29 +20,29 @@ public class AppController {
 
     @RequestMapping("/")
     public String viewHomePage(Model model) {
-        List<Configurations> listProducts = service.listAll();
+        List<City> listProducts = service.listAll();
         model.addAttribute("listProducts", listProducts);
         return "index";
     }
 
     @RequestMapping("/new")
     public String showNewProductPage(Model model) {
-        Configurations config = new Configurations();
+        City config = new City();
         model.addAttribute("city", config);
         return "new_city";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveProduct(@ModelAttribute("configurations") Configurations configurations) {
-        service.save(configurations);
+    public String saveProduct(@ModelAttribute("configurations") City city) {
+        service.save(city);
         return "redirect:/";
     }
 
     @RequestMapping("/edit/{id}")
     public ModelAndView showEditProductPage(@PathVariable(name = "id") int id) {
         ModelAndView mav = new ModelAndView("edit_product");
-        Configurations configurations = service.get(id);
-        mav.addObject("configurations", configurations);
+        City city = service.get(id);
+        mav.addObject("configurations", city);
         return mav;
     }
 

@@ -14,12 +14,12 @@ import javax.persistence.Id;
 
 //;
 
-public class Configurations {
+public class City {
     private Long idCity;
     private String nameCity;
     private String cityInfo;
 
-    public Configurations() {
+    public City() {
     }
 
     @Id
